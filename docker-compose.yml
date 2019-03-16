@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  kafka-broker-1:
+      image: kafka:5.1.2
+      ports:
+        - "9092:9092"   
+        - "9093:9093"
+      links:
+        - zookeeper 
+  zookeeper:
+    image: zookeeper:3.4.13
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+  kafka-manager:
+      image: kafka-manager:1.3.3.18
+      ports:
+        - "9000:9000" 
+      links:
+        - zookeeper
+      environment:
+        ZK_HOSTS: zookeeper:2181      
+  
+    
+        
